@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace GraphExer {
     internal class GraphAlgoTest {
-
-
         public static void Test1() {
             int n = 7;
             int[][] edges = new int[][] {

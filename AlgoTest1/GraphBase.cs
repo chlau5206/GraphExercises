@@ -114,7 +114,105 @@ namespace GraphExer {
             Console.WriteLine();
         }
         public abstract void PrintEdgesAList();
+
+        ///public abstract void AddData(object graph, int numVertex, int[][] edges);
+        }
+  
+    public class GraphDirWeight : GraphOps {
+        // Adjancey List approach
+        public GraphDirWeight() {
+
+            // Constructor ......
+
+        }// under construction
+
+        public override void DelVertex(int key) {
+            // 1. delete Vertex
+            // 2. DelEdge(a, b)
+            // 3. DelEdge(b, a)
+        }// under construction
+        public void AddEdgeAList(Vertex startPt, Vertex endPt, int weight) {
+            // for undirected/unweight/Adjacney List
+            AddEdgeToAdjList(startPt, endPt, weight);
+            // AddEdgeToAdjList(endPt, startPt, weight); // Undirect & weight
+        } // in progress
+        public override void DelEdge(Vertex a, Vertex b) { }
+
+        public override int GetVertexValue(Vertex key) {
+            return key.Key;
+        } // done.
+        public override void PrintAll() {
+            Console.WriteLine(".. under contruction ..");
+        }  // under contruction
+
+        public override void PrintEdgesAList() {
+            foreach (KeyValuePair<Vertex, IList<EdgeType>> edges in AdjList) {
+                Console.WriteLine($"Vertex: {edges.Key}");
+                foreach (EdgeType edge in edges.Value)
+                    Console.WriteLine(
+                        $"\tFrom: {edge.startPt} \tTo: {edge.endPt} \tWeight:{edge.weight}");
+            }
+        } // done
+
+        public override int GetCount() {
+            return 0;
+        }
     }
+
+    public class GraphDirWeightedAlgo {
+        public GraphDirWeightedAlgo() {
+        }
+
+        public static void DijkstraShortestPath() {
+            // find the shortest path by using Dijkstra's Algo
+        }
+
+        public static void BellmanFordShortestPath() {
+            // find the shortest path by using Bellman-Ford's Algo
+        }
+        public static void GraphAlgoTest2() {
+            int n = 6;
+            int[][] edges = new int[][] {
+                new int[] {1, 2, 2},
+                new int[] {1, 3, 5},
+                new int[] {2, 4, 6},
+                new int[] {2, 5, 10},
+                new int[] {3, 4, 9},
+                new int[] {3, 5, 8},
+                new int[] {4, 6, 4},
+                new int[] {5, 6, 3}
+            };
+            GraphDirWeight club = new GraphDirWeight();
+            AddData(club, n, edges);
+            //int target = 5;
+
+            ////for (target = 0; target < n + 2; target++) {
+            ////  Vertex vertex = BreadthFirstSearchKey(club, target);
+            //Vertex vertex = DepthFirstSearchKey(club, target);
+            ////DepthFirstSearchKey
+            //if (vertex == null)
+            //    Console.WriteLine($"Target {target} not found.");
+            //else
+            //    Console.WriteLine("{0}: Key = {1}, ", (vertex), target);
+            ////}
+        }
+        public static void AddData(GraphDirWeight graph, int numVertex, int[][] edges) {
+            // add data to Graph
+            GraphDirWeight theGraph = (GraphDirWeight)graph;
+            for (int i = 1; i <= numVertex; i++) // numVertex -> number of vertex
+                graph.AddVertex(i);
+
+            int len = edges.GetLength(0);
+            for (int i = 0; i < len; i++) {
+                int begin = edges[i][0];
+                int end = edges[i][1];
+                int weight = edges[i][2];
+                graph.AddEdgeAList(theGraph.GetVertex(begin), theGraph.GetVertex(end), weight);
+            }
+            graph.PrintEdgesAList();
+        } // done
+    }
+
     public class GraphUndirUnweight : GraphOps {
         // Adjancey List approach
         public GraphUndirUnweight() {
@@ -249,108 +347,6 @@ namespace GraphExer {
             return result;
         }// status: in progress
 
-
-
     }
-
-    public class GraphDirWeight : GraphOps {
-        // Adjancey List approach
-        public GraphDirWeight() {
-
-            // Constructor ......
-
-        }// under construction
-
-        public override void DelVertex(int key) {
-            // 1. delete Vertex
-            // 2. DelEdge(a, b)
-            // 3. DelEdge(b, a)
-        }// under construction
-        public void AddEdgeAList(Vertex startPt, Vertex endPt, int weight) {
-            // for undirected/unweight/Adjacney List
-            AddEdgeToAdjList(startPt, endPt, weight);
-            // AddEdgeToAdjList(endPt, startPt, weight); // Undirect & weight
-        } // in progress
-        public override void DelEdge(Vertex a, Vertex b) { }
-
-        public override int GetVertexValue(Vertex key) {
-            return key.Key;
-        } // done.
-        public override void PrintAll() {
-            Console.WriteLine(".. under contruction ..");
-        }  // under contruction
-
-        public override void PrintEdgesAList() {
-            foreach (KeyValuePair<Vertex, IList<EdgeType>> edges in AdjList) {
-                Console.WriteLine($"Vertex: {edges.Key}");
-                foreach (EdgeType edge in edges.Value)
-                    Console.WriteLine(
-                        $"\tFrom: {edge.startPt} \tTo: {edge.endPt} \tWeight:{edge.weight}");
-            }
-        } // done
-
-        public override int GetCount() {
-            return 0;
-        }
-    }
-
-    public class GraphDirWeightedAlgo {
-        public GraphDirWeightedAlgo() {
-        }
-
-        public static void DijkstraShortestPath() {
-            // find the shortest path by using Dijkstra's Algo
-        }
-
-        public static void BellmanFordShortestPath() {
-            // find the shortest path by using Bellman-Ford's Algo
-        }
-        public static void GraphAlgoTest2() {
-            int n = 6;
-            int[][] edges = new int[][] {
-                new int[] {1, 2, 2},
-                new int[] {1, 3, 5},
-                new int[] {2, 4, 6},
-                new int[] {2, 5, 10},
-                new int[] {3, 4, 9},
-                new int[] {3, 5, 8},
-                new int[] {4, 6, 4},
-                new int[] {5, 6, 3}
-            };
-            GraphDirWeight club = new GraphDirWeight();
-            AddData(club, n, edges);
-            //int target = 5;
-
-            ////for (target = 0; target < n + 2; target++) {
-            ////  Vertex vertex = BreadthFirstSearchKey(club, target);
-            //Vertex vertex = DepthFirstSearchKey(club, target);
-            ////DepthFirstSearchKey
-            //if (vertex == null)
-            //    Console.WriteLine($"Target {target} not found.");
-            //else
-            //    Console.WriteLine("{0}: Key = {1}, ", (vertex), target);
-            ////}
-        }
-        static void AddData(GraphDirWeight graph, int numVertex, int[][] edges) {
-            // add data to Graph
-            for (int i = 1; i <= numVertex; i++) // numVertex -> number of vertex
-                graph.AddVertex(i);
-
-            int len = edges.GetLength(0);
-            for (int i = 0; i < len; i++) {
-                int begin = edges[i][0];
-                int end = edges[i][1];
-                int weight = edges[i][2];
-                graph.AddEdgeAList(graph.GetVertex(begin), graph.GetVertex(end), weight);
-            }
-            graph.PrintEdgesAList();
-        } // done
-    }
-
-
-
-
-
-
 
 }
